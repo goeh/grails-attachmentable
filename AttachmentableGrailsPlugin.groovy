@@ -55,10 +55,12 @@ class AttachmentableGrailsPlugin {
 
     def author = 'Mihai Cazacu'
     def authorEmail = 'cazacugmihai@gmail.com'
+    def developers = [ [name: "Mihai Cazacu", email: "cazacugmihai@gmail.com" ], [ name: "Goran Ehrsson", email: "goran@technipelago.se" ]]
     def title = 'Attachmentable Plugin'
     def description = 'A plugin that allows you to add attachments to domain classes in a generic manner.'
-
+    def license = "APACHE"
     def documentation = 'http://grails.org/plugin/attachmentable'
+    def scm = [url: "https://github.com/goeh/grails-attachmentable"]
 
     def doWithSpring = {
         def config = application.config
