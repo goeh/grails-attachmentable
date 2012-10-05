@@ -32,7 +32,7 @@ class AttachmentableGrailsPlugin {
 
     static LOG = LogFactory.getLog('com.macrobit.grails.plugins.AttachmentableGrailsPlugin')
 
-    def version = '0.3.0-SNAPSHOT'
+    def version = '0.3.0'
     def grailsVersion = '1.1 > *'
     def dependsOn = [hibernate: '1.1 > *']
     def pluginExcludes = [
@@ -55,7 +55,7 @@ class AttachmentableGrailsPlugin {
 
     def author = 'Mihai Cazacu'
     def authorEmail = 'cazacugmihai@gmail.com'
-    def developers = [ [name: "Mihai Cazacu", email: "cazacugmihai@gmail.com" ], [ name: "Goran Ehrsson", email: "goran@technipelago.se" ]]
+    def developers = [[name: "Goran Ehrsson", email: "goran@technipelago.se"]]
     def title = 'Attachmentable Plugin'
     def description = 'A plugin that allows you to add attachments to domain classes in a generic manner.'
     def license = "APACHE"
