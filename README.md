@@ -19,13 +19,13 @@ Add a plugin dependency in BuildConfig.groovy
 
 ## Configuration
 
-### The default one looks like:
+**The default one looks like:**
 
     grails.attachmentable.maxInMemorySize = 1024
     grails.attachmentable.maxUploadSize = 1024000000
     grails.attachmentable.uploadDir = YOUR_USER_HOME/APP_NAME
 
-### You need to define a poster evaluator in grails-app/conf/Config.groovy. The default one looks like:
+**You need to define a poster evaluator in grails-app/conf/Config.groovy. The default one looks like:**
 
     grails.attachmentable.poster.evaluator = { request.user }
 
@@ -33,11 +33,11 @@ But if you store users in the session instead you may want this to be:
 
     grails.attachmentable.poster.evaluator = { session.user }
 
-Or, if you use the [Acegi plugin|http://grails.org/plugin/acegi]:
+Or, if you use the [Acegi plugin](http://grails.org/plugin/acegi):
 
     grails.attachmentable.poster.evaluator = { getAuthUserDomain() }
 
-Or in case of the [Spring Security Core Plugin|http://grails.org/plugin/spring-security-core]:
+Or in case of the [Spring Security Core Plugin](http://grails.org/plugin/spring-security-core):
 
     grails.attachmentable.poster.evaluator = { getPrincipal() }
 
@@ -67,7 +67,7 @@ Implement the *Attachmentable* interface:
     class Topic implements Attachmentable {
     }
 
-*or*
+**or**
 
 Add a static property
 
@@ -161,7 +161,7 @@ To add some logic to handle newly created attachments, just add an "onAddAttachm
 
 ## Tags
 
-**deleteLink**
+### deleteLink
 
 Attribute      | Description
 -------------- | --------------------
@@ -169,14 +169,14 @@ attachment     | The attachment instance.
 label          | The link label (also you can use the body tag instead of this attribute).
 returnPageURI  | The page URI to return after the action.
 
-**downloadLink**
+### downloadLink
 
 Attribute      | Description
 -------------- | --------------------
 attachment     | The attachment instance.
 inline         | true if attachment should be viewed inline in the browser.
 
-**each**
+### each
 
 Attribute      | Description
 -------------- | --------------------
@@ -186,7 +186,7 @@ inputNames     | The list of input names.
 var            |  The name of the item (default: 'attachment').
 status         | The name of a variable to store the iteration index in. For the first iteration this variable has a value of 0, for the next, 1, and so on.
 
-**total**
+### total
 
 Attribute      | Description
 -------------- | --------------------
@@ -194,12 +194,13 @@ bean           | The attachmentable instance.
 inputName      | The input name.
 inputNames     | The list of input names.
 
-**style**
+### style
 
 Attribute      | Description
 -------------- | --------------------
+no attributes  |
 
-**script**
+### script
 
 Attribute      | Description
 -------------- | --------------------
@@ -211,7 +212,7 @@ acceptExt      | Accepted extensions.
 updateElemId   | The ID of the element that will be updated with the response data.
 redirect       | URL to redirect to when file upload is finished.
 
-**uploadForm**
+### uploadForm
 
 Attribute      | Description
 -------------- | --------------------
@@ -219,12 +220,13 @@ bean           | The attachmentable instance.
 inputName      | The file input name (default: 'attachment').
 styleClass     | The style class.
 
-**progressBar**
+### progressBar
 
 Attribute      | Description
 -------------- | --------------------
+no attributes  |
 
-**icon**
+### icon
 
 Generates an <img> tag with an appropriate icon based on file type, using a subset of the [Silk Icons](http://www.famfamfam.com/lab/icons/silk/).
 
@@ -243,4 +245,5 @@ attachment     | The Attachment instance
 # Suggestions, comments or bugs
 
 Feel free to submit questions or comments to the [Google Group - Grails Dev Discuss](https://groups.google.com/forum/#!forum/grails-dev-discuss)
+
 Please report any issues to [https://github.com/goeh/grails-attachmentable/issues]
