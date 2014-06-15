@@ -44,7 +44,7 @@ class AttachmentableController {
                 }
 
                 if (params.containsKey('withContentType')) {
-                    response.contentType = attachment.contentType                    
+                    response.contentType = attachment.contentType
                 } else {
                     response.contentType = 'application/octet-stream'
                 }
@@ -94,7 +94,7 @@ class AttachmentableController {
         def result = attachmentableService.removeAttachment(params.id as Long)
 
         if (params.returnPageURI) {
-            redirect url: params.returnPageURI
+            redirect url: params.returnPageURI - request.contextPath
         } else {
             render (result > 0 ? 'success' : 'failed')
         }
