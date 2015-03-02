@@ -89,7 +89,7 @@ GSP:
     <input type="file" name="someLabel"/>
     ...
 
-or
+**or**
 
     <attachments:style />
     <attachments:uploadForm bean="${topicInstance}" />
@@ -157,7 +157,7 @@ To add some logic to handle newly created attachments, just add an "onAddAttachm
 
 ## Internationalization
 
-- check the "messages.properties" file from the plugin directory.
+Check the *messages.properties* file from the plugin directory.
 
 ## Tags
 
