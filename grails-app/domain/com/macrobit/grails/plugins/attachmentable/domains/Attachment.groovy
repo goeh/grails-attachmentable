@@ -14,8 +14,8 @@
  */
 package com.macrobit.grails.plugins.attachmentable.domains
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
 import com.macrobit.grails.plugins.attachmentable.util.AttachmentableUtil
+import grails.util.Holders
 
 class Attachment {
 
@@ -47,7 +47,7 @@ class Attachment {
     static transients = ['filename', 'path', 'niceLength', 'poster']
     static searchable = {
         only = ['name', 'ext', 'path']
-        path converter: CH.config.grails.attachmentable.searchableFileConverter ?: 'string'
+        path converter: Holders.config.grails.attachmentable.searchableFileConverter ?: 'string'
     }
 
     static mapping = {
@@ -74,7 +74,7 @@ class Attachment {
     }
 
     String getPath() {
-        AttachmentableUtil.getFile(CH.config, this).absolutePath
+        AttachmentableUtil.getFile(Holders.config, this).absolutePath
     }
 
     def getPoster() {

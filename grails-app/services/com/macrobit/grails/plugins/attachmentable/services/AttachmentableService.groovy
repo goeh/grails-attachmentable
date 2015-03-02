@@ -14,8 +14,6 @@
  */
 package com.macrobit.grails.plugins.attachmentable.services
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
-
 import com.macrobit.grails.plugins.attachmentable.core.exceptions.AttachmentableException
 import com.macrobit.grails.plugins.attachmentable.domains.Attachment
 import com.macrobit.grails.plugins.attachmentable.domains.AttachmentLink
@@ -91,7 +89,7 @@ class AttachmentableService {
     }
 
     def addAttachment(def poster, def reference, CommonsMultipartFile file) {
-        addAttachment(CH.config, poster, reference, file)
+        addAttachment(grailsApplication.config, poster, reference, file)
     }
 
     def addAttachment(def config,
@@ -161,10 +159,10 @@ class AttachmentableService {
 
     int removeAttachments(def reference) {
         def cnt = 0
-        def dir = AttachmentableUtil.getDir(CH.config, reference)
+        def dir = AttachmentableUtil.getDir(grailsApplication.config, reference)
         def files = []
         reference.getAttachments()?.collect {
-            files << AttachmentableUtil.getFile(CH.config, it)
+            files << AttachmentableUtil.getFile(grailsApplication.config, it)
         }
 
         def lnk = AttachmentLink.findByReferenceClassAndReferenceId(
@@ -193,7 +191,7 @@ class AttachmentableService {
     }
 
     boolean removeAttachment(Attachment attachment) {
-        File file = AttachmentableUtil.getFile(CH.config, attachment)
+        File file = AttachmentableUtil.getFile(grailsApplication.config, attachment)
         try {
             AttachmentLink lnk = attachment.lnk
             lnk.removeFromAttachments(attachment)
@@ -223,7 +221,7 @@ class AttachmentableService {
                     inputNames: inputNames])
 
         attachments?.each {Attachment attachment ->
-            File file = AttachmentableUtil.getFile(CH.config, attachment)
+            File file = AttachmentableUtil.getFile(grailsApplication.config, attachment)
 
             try {
                 attachment.delete(flush: true)
