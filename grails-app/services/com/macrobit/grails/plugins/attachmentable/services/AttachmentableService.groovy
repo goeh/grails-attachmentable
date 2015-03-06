@@ -322,9 +322,7 @@ class AttachmentableService {
         result
     }
 
-    PagedResultList findAttachmentsByReference(def reference,
-                                               List inputs,
-                                               def params = [:]) {
+    PagedResultList findAttachmentsByReference(def reference, List inputs = [], Map params = [:]) {
         if (!reference) {
             throw new AttachmentableException(
                     "Reference is null.")
