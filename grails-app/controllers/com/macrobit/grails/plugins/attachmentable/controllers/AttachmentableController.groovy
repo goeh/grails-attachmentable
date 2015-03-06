@@ -17,7 +17,6 @@ package com.macrobit.grails.plugins.attachmentable.controllers
 import com.macrobit.grails.plugins.attachmentable.domains.Attachment
 import com.macrobit.grails.plugins.attachmentable.domains.AttachmentLink
 import com.macrobit.grails.plugins.attachmentable.util.AttachmentableUtil
-import grails.orm.PagedResultList
 import javax.servlet.http.HttpServletResponse
 
 class AttachmentableController {
@@ -27,7 +26,7 @@ class AttachmentableController {
 
     // download
 
-    def download = {
+    def download() {
         Attachment attachment = Attachment.get(params.id as Long)
 
         if (attachment) {
@@ -62,7 +61,7 @@ class AttachmentableController {
         response.status = HttpServletResponse.SC_NOT_FOUND
     }
 
-    def show = {
+    def show() {
         // Default show action is to display the attachment inline in the browser.
         if (!params.containsKey('inline')) {
             params.inline = ''
@@ -75,7 +74,7 @@ class AttachmentableController {
 
     // upload
 
-    def upload = {
+    def upload() {
         AttachmentLink lnk = new AttachmentLink(params.attachmentLink)
 
         attachUploadedFilesTo(lnk.reference)
@@ -83,13 +82,13 @@ class AttachmentableController {
         render 'success'
     }
 
-    def uploadInfo = {
+    def uploadInfo() {
         uploadStatus()
     }
 
     // delete
 
-    def delete = {
+    def delete() {
         def result = attachmentableService.removeAttachment(params.id as Long)
 
         if (params.returnPageURI) {

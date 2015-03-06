@@ -89,13 +89,17 @@ class AttachmentableService {
     }
 
     def addAttachment(def poster, def reference, CommonsMultipartFile file) {
-        addAttachment(grailsApplication.config, poster, reference, file)
+        doAddAttachment(grailsApplication.config, poster, reference, file)
     }
 
-    def addAttachment(def config,
+    def addAttachment(def poster, def reference, MultipartFile file) {
+        doAddAttachment(grailsApplication.config, poster, reference, file)
+    }
+
+    private Object doAddAttachment(def config,
                       def poster,
                       def reference,
-                      CommonsMultipartFile file) {
+                      def file) {
 
         if (reference.ident() == null) {
             throw new AttachmentableException(
@@ -136,7 +140,7 @@ class AttachmentableService {
 
         if (!link.save(flush: true)) {
             throw new AttachmentableException(
-                    "Cannot create Attachment for arguments [$user, $file], they are invalid.")
+                    "Cannot create Attachment for arguments [$poster, $file], they are invalid.")
         }
 
         // save file to disk
