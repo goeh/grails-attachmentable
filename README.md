@@ -8,7 +8,7 @@ It is based on 2 JQuery plugins:
 
 ## Requirements
 
-* Grails Version: 1.2.1 and above (plugin version 1.4.0 requires Grails 2.4.x and above)
+* Grails Version: 1.2.1 and above (plugin version 1.4.x requires Grails 2.4.x and above)
 * JDK: 1.5 and above
 
 ## Installation
@@ -236,6 +236,7 @@ attachment     | The Attachment instance
 
 ## Version History
 
+* 0.4.1 (March 7, 2015) - allow plugin directory to be overridden with plugin="${false}" in taglib calls.
 * 0.4.0 (March 6, 2015) - Upgraded plugin to be compatible with Grails 2.4.4
 * 0.3.0 (October 5, 2012) - Updated dependencies and uploaded source to github.
 * 0.2.1 (January 14, 2011) - Fixed problem with spring security plugin.
