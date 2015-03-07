@@ -98,9 +98,10 @@ class AttachmentsTagLib {
     // FORM
     
     def style = {attrs ->
+    def plugin = (attrs.plugin!=false) ? "attachmentable" : ""
         out << g.render(
                 template: '/attachmentable/resources/style',
-                plugin: 'attachmentable')
+                plugin: plugin)
     }
 
     def progressBar = {
@@ -111,11 +112,12 @@ class AttachmentsTagLib {
         def bean = attrs.remove('bean')
         def inputName = attrs.remove('inputName') ?: 'attachment'
         def styleClass = attrs.remove('styleClass')
+        def plugin = (attrs.plugin!=false) ? "attachmentable" : ""
 
         if (AttachmentableUtil.isAttachmentable(bean)) {
             out << g.render(
                 template: '/attachmentable/form',
-                plugin: 'attachmentable',
+                plugin: plugin,
                 model: [attachmentable: bean,
                         inputName: inputName,
                         styleClass: styleClass])
@@ -130,11 +132,12 @@ class AttachmentsTagLib {
         def updateElemId = attrs.remove('updateElemId')
         def redirect = attrs.remove('redirect')
         def allowedExt = attrs.remove('acceptExt') ?: []
+        def plugin = (attrs.plugin!=false) ? "attachmentable" : ""
         allowedExt = allowedExt.join('|')
 
         out << g.render(
                 template: '/attachmentable/resources/script',
-                plugin: 'attachmentable',
+                plugin: plugin,
                 model: [inputName: inputName,
                         importJS: importJS,
                         updateInterval: updateInterval,
@@ -190,7 +193,8 @@ class AttachmentsTagLib {
         if(! bean) {
             throwTagError("Tag [icon] is missing required attribute [attachment]")
         }
-        out << "<img width=\"16\" height=\"16\" src=\"" + g.resource(plugin:'attachmentable', dir: 'images/silk', file: FILE_ICON_MAP[bean.ext?.toLowerCase()] ?: 'page_white') + ".png\" alt=\"${bean.ext}\"/>"
+        def plugin = (attrs.plugin!=false) ? "attachmentable" : ""
+        out << "<img width=\"16\" height=\"16\" src=\"" + g.resource(plugin:plugin, dir: 'images/silk', file: FILE_ICON_MAP[bean.ext?.toLowerCase()] ?: 'page_white') + ".png\" alt=\"${bean.ext}\"/>"
     }
 
     /* ------------------------------- UTILS -------------------------------- */
