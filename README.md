@@ -198,7 +198,7 @@ inputNames     | The list of input names.
 
 Attribute      | Description
 -------------- | --------------------
-no attributes  |
+plugin         | true/false flag to use the template bundled with the plugin or not (default true)
 
 ### script
 
@@ -211,6 +211,7 @@ maxFiles       | The maximum files allowed.
 acceptExt      | Accepted extensions.
 updateElemId   | The ID of the element that will be updated with the response data.
 redirect       | URL to redirect to when file upload is finished.
+plugin         | true/false flag to use the template bundled with the plugin or not (default true)
 
 ### uploadForm
 
@@ -219,6 +220,7 @@ Attribute      | Description
 bean           | The attachmentable instance.
 inputName      | The file input name (default: 'attachment').
 styleClass     | The style class.
+plugin         | true/false flag to use the template bundled with the plugin or not (default true)
 
 ### progressBar
 
