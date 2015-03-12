@@ -155,6 +155,22 @@ To add some logic to handle newly created attachments, just add an "onAddAttachm
         }
     }
 
+To copy all attachments from one object to another, use the copyAttachments() method of the attachmentableService
+
+    class FooController {
+
+	    def attachmentableService
+		
+		def foo() {
+		    def object1 = Topic.get(1)
+			def object2 = new Topic().save()
+			attachmentableService.copyAttachments(object1, object2, "Copy of")
+		}
+	}
+
+The third parameter is a filename prefix to use on copied files (optional).
+
+
 ## Internationalization
 
 Check the *messages.properties* file from the plugin directory.

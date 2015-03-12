@@ -24,6 +24,7 @@ import com.macrobit.grails.plugins.attachmentable.util.AttachmentableUtil
 import org.apache.commons.io.FilenameUtils
 import com.macrobit.grails.plugins.attachmentable.core.exceptions.EmptyFileException
 import java.lang.reflect.UndeclaredThrowableException
+import java.nio.file.Files
 
 class AttachmentableService {
 
@@ -89,31 +90,35 @@ class AttachmentableService {
     }
 
     def addAttachment(def poster, def reference, CommonsMultipartFile file) {
-        doAddAttachment(grailsApplication.config, poster, reference, file)
+        doAddAttachment(grailsApplication.config, poster, reference, file, file?.contentType, file?.size, file.name, file.originalFilename)
     }
 
     def addAttachment(def poster, def reference, MultipartFile file) {
-        doAddAttachment(grailsApplication.config, poster, reference, file)
+        doAddAttachment(grailsApplication.config, poster, reference, file, file?.contentType, file?.size, file.name, file.originalFilename)
     }
+
+		def addAttachment(def poster, def reference, def file, fileContentType, fileSize, String newName) {
+				doAddAttachment(grailsApplication.config, poster, reference, file, fileContentType, fileSize, newName, newName)
+		}
 
     private Object doAddAttachment(def config,
                       def poster,
                       def reference,
-                      def file) {
+                      def file, String fileContentType, def fileSize, String _name, String _originalFilename) {
 
         if (reference.ident() == null) {
             throw new AttachmentableException(
                 "You must save the entity [${delegate}] before calling addAttachment.")
         }
 
-        if (!file?.size) {
-            throw new EmptyFileException(file.name, file.originalFilename)
+        if (!fileSize || fileSize==0) {
+            throw new EmptyFileException(_name,  _originalFilename)
         }
 
         String delegateClassName = AttachmentableUtil.fixClassName(reference.class)
         String posterClass = (poster instanceof String) ? poster : AttachmentableUtil.fixClassName(poster.class.name)
         Long posterId = (poster instanceof String) ? 0L : poster.id
-        String filename = file.originalFilename
+        String filename = _originalFilename
 
         // link
         def link = AttachmentLink.findByReferenceClassAndReferenceId(
@@ -130,12 +135,12 @@ class AttachmentableService {
                 name: FilenameUtils.getBaseName(filename),
                 ext: FilenameUtils.getExtension(filename),
                 length: 0L,
-                contentType: file.contentType,
+                contentType: fileContentType,
                 // poster
                 posterClass: posterClass,
                 posterId: posterId,
                 // input
-                inputName: file.name)
+                inputName: _name)
         link.addToAttachments attachment
 
         if (!link.save(flush: true)) {
@@ -145,7 +150,12 @@ class AttachmentableService {
 
         // save file to disk
         File diskFile = AttachmentableUtil.getFile(config, attachment, true)
-        file.transferTo(diskFile)
+				if(file instanceof MultipartFile)
+				{
+        	file.transferTo(diskFile)
+				} else {
+					Files.copy(new FileInputStream(file), new FileOutputStream(diskFile))
+				}
 
         attachment.length = diskFile.length()
 
@@ -349,5 +359,15 @@ class AttachmentableService {
 
         result
     }
+
+	def copyAttachments(fromObject, toObject, prefix="")
+	{
+		def attachments = findAttachmentsByReference(fromObject)
+		attachments.each { Attachment att->
+			String newName = prefix+att.filename
+			File oldFile = AttachmentableUtil.getFile(grailsApplication.config, att)
+			addAttachment("admin", toObject, oldFile, att?.contentType, oldFile?.length(), newName)
+		}
+	}
 
 }
