@@ -14,7 +14,7 @@
  */
 package com.macrobit.grails.plugins.attachmentable.core.ajax
 
-class ProgressDescriptor {
+class ProgressDescriptor implements Serializable {
 
     long bytesRead = 0
     long bytesTotal = 0
