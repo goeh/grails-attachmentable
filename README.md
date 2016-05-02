@@ -238,6 +238,7 @@ attachment     | The Attachment instance
 
 ## Version History
 
+* 0.4.2 (May 2, 2016) - ProgressDescriptor is now Serializable (required by Glassfish 3.1)
 * 0.4.1 (March 7, 2015) - allow plugin directory to be overridden with plugin="${false}" in taglib calls.
 * 0.4.0 (March 6, 2015) - Upgraded plugin to be compatible with Grails 2.4.4
 * 0.3.0 (October 5, 2012) - Updated dependencies and uploaded source to github.
